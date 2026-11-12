@@ -45,32 +45,96 @@ Día 2 -->
 
 Dia 3 --> 
     T08 Backend- Definir Modelos
-        -shipping.line
-        -shipping.line.tariff
-        -shipping.line.tariff.range
+        -shipping.line -> OK
+        -shipping.line.tariff -> OK
+        -shipping.line.tariff.range -> OK
+
+Dia 4 -->         
         -customer.shipping.condition
         -demurrage.bl
         -demurrage.container    
 
-
 # Ejecución:
 1- ingresamos a la raiz del proyecto 
     - Odoo/
+
 2- Activamos el entorno virtual    
     - "venv\Scripts\activate.bat"
-    "venv\Scripts\activate.ps1"
+    powersehll vscode --> "venv\Scripts\activate.ps1"
+
 3- iniciar el servidor: incluyendo el archivo de configuracion
     - "" python odoo-bin -c odoo.conf ""
    
 4-Entra en tu navegador a http://localhost:8017
+
 5-Iniciar sesion login Odoo
     Usuario: admin
     Contraseña: Admin1234
 
-6- Crear Modulo Container_ctl_mod 
-se vincula con el archivo odoo.conf
-; Directorios de modulos
+6- Crear Modulo Container_ctl_mod: 
+se vincula con el archivo odoo.conf; Directorios de modulos:
 addons_path = C:\Odoo17\odoo\odoo\addons,C:\Odoo17\odoo\addons,C:\Odoo17\custom_addons
+
+7- Crear modelos: 
+    -shipping_company
+    -shipping_tariff
+    -shipping_range
+
+ejemplo estructura basica:
+""
+from odoo import fields, models
+
+class TestModel(models.Model):
+    _name = "test_model"
+    _description = "Test Model"
+
+    name = fields.Char()
+""
+## Ejecutar Odoo con el módulo personalizado
+
+Ejecuta estos comandos desde `C:\Odoo17\odoo`, con el entorno virtual activado.
+El archivo `odoo.conf` debe incluir `C:\Odoo17\odoo\custom_addons` en `addons_path`.
+
+Para instalar el módulo por primera vez:
+
+```powershell
+python .\odoo-bin -c .\odoo.conf -d container_mod -i container_ctl_mod --stop-after-init
+```
+
+Después de cambiar modelos o vistas, actualízalo:
+
+```powershell
+python .\odoo-bin -c .\odoo.conf -d container_mod -u container_ctl_mod --stop-after-init
+```
+
+Para iniciar Odoo y dejar el servidor web ejecutándose:
+
+```powershell
+python .\odoo-bin -c .\odoo.conf -d container_mod
+```
+
+Abre `http://localhost:8017` en el navegador. `--stop-after-init` hace que Odoo
+se detenga al terminar la instalación o actualización; no se usa al iniciar el
+servidor para trabajar normalmente.
+
+## Estructura del módulo `container_ctl_mod`
+
+container_ctl_mod/
+│
+├── __init__.py
+├── __manifest__.py
+│
+├── models/
+│   ├── __init__.py
+│   ├── shipping_company.py
+│   ├── shipping_tariff.py
+│   └── shipping_tariff_range.py
+│
+├── security/
+│   └── ir.model.access.csv
+│
+└── views/
+    └── shipping_views.xml
 
 # Comando de pruebas
 Ingresar psql terminal:
@@ -79,10 +143,11 @@ Ingresar psql terminal:
 crear tablas bd odoo = container_mod
     "python odoo-bin -c odoo.conf -d container_mod -i base"
 
-# Casos de estidio: Control de container
+# Casos de estudio: Control de containers
 Puerto Alto SAS empresa ficticia requiere automatizar la gestion de containers: Actualmente se lleva control de  tiempos y  tarifas de manera manual registrando informacion en excel y no se lleva trazabilidad de container. Se han presentado algunas dificultades cuando no se encuentra fecha de salida de cada container en el area contable, debido a que el puerto debe asumir unos sobre costos si supera los dias estipulados en libro "BL" de contratos de la naviera.
 
-# DIAGRAMA DE FLUJO OPERACIONAL
+# Diagrama de flujo de proceso
+ Diagrama de procesos para llevar control de container Puerto Alto S.A.S
 <img width="686" height="393" alt="Diagrama_flujo_Container drawio" src="https://github.com/user-attachments/assets/12d3ed11-748d-4b5f-b813-952d3ec2ca11" />
 
 # Modelo de datos

@@ -18,7 +18,8 @@
     'depends': ['base', 'web'],
 
     'data': [
-        'views/views.xml',
+        'security/ir.model.access.csv',
+        'views/shipping_views.xml',
     ],
     'license': 'LGPL-3'
 }

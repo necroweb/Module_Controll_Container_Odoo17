@@ -4,3 +4,7 @@ include README.md
 graft odoo
 recursive-exclude * *.py[co]
 recursive-exclude .git *
+'data': [
+    'security/model.access.csv',
+    'views/views.xml',
+],
