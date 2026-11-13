@@ -1,5 +1,4 @@
-from odoo import models, fields
-from odoo.exceptions import ValidationError
+from odoo import fields, models
 
 # =====================================================
 # MODELO 3: TRAMOS DE TARIFAS

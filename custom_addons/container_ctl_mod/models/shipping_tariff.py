@@ -1,5 +1,4 @@
-from odoo import models, fields, api
-from odoo.exceptions import ValidationError
+from odoo import fields, models
 
 # =====================================================
 # MODELO 2: TARIFAS DE NAVIERAS
@@ -45,21 +44,14 @@ class ShippingTariff(models.Model):
     # Fecha final de vigencia
     date_to = fields.Date(
         string='Fecha hasta',
-        required=True
+        required=False
     )
 
-    # Vigencia de la tarifa
-    vigencia = fields.Char(
-    string='Vigencia',
-    compute='_compute_vigencia',
-    store=True,
-    
-    )
-    # Dias libres
+    # Días libres acordados en la tarifa, independiente de su vigencia
     free_days = fields.Integer(
         string='Dias libres',
-        compute="_compute_free_days",
-        store=True 
+        required=True,
+        default=0,
     )
 
     # Relacion: una tarifa puede tener muchos tramos
@@ -69,32 +61,3 @@ class ShippingTariff(models.Model):
         string='Tramos de tarifa'
     )
 
-    # Funcion para concatenar date_from + date_to
-    @api.depends('date_from', 'date_to')
-    def _compute_vigencia(self):
-        for rec in self:
-            if rec.date_from and rec.date_to:
-                desde = rec.date_from.strftime('%d/%m/%Y')
-                hasta = rec.date_to.strftime('%d/%m/%Y')
-                rec.vigencia = f'Desde {desde} hasta {hasta}'
-            else:
-                rec.vigencia = ''
-
-    # funcion para calcular los dias libres de la tarifa
-    @api.depends('date_from', 'date_to')
-    def _compute_free_days(self):
-        
-        for rec in self:
-
-            if rec.date_from and rec.date_to:
-
-                delta = (
-                    rec.date_to -
-                    rec.date_from
-                )
-
-                rec.free_days = delta.days
-
-            else:
-
-                rec.free_days = 0

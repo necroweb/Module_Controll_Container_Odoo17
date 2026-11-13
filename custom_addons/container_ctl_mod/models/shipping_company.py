@@ -1,5 +1,4 @@
 from odoo import fields, models
-from odoo.exceptions import ValidationError
 
 # =====================================================
 # MODELO 1: NAVIERA

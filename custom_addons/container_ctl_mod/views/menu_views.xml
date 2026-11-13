@@ -1,0 +1,45 @@
+<odoo>
+ <!-- ===================================== -->
+    <!-- 6. MENÚS                              -->
+    <!-- ===================================== -->
+    <menuitem
+        id="menu_container_root"
+        name="Gestión de Contenedores"
+        sequence="10"/>
+    <menuitem
+        id="menu_shipping_company"
+        name="Navieras"
+        parent="menu_container_root"
+        action="action_shipping_company"
+        sequence="10"/>
+    <menuitem
+        id="menu_shipping_tariff"
+        name="Tarifas"
+        parent="menu_container_root"
+        action="action_shipping_tariff"
+        sequence="20"/>
+    <menuitem
+        id="menu_shipping_tariff_range"
+        name="Tramos de tarifa"
+        parent="menu_container_root"
+        action="action_shipping_tariff_range"
+        sequence="30"/>
+    <menuitem
+        id="menu_shipping_customer"
+        name="Clientes"
+        parent="menu_container_root"
+        action="action_shipping_customer"
+        sequence="40"/>
+    <menuitem
+        id="menu_shipping_book_lading"
+        name="BL / Embarques"
+        parent="menu_container_root"
+        action="action_shipping_book_lading"
+        sequence="50"/>
+    <menuitem
+        id="menu_shipping_container"
+        name="Contenedores"
+        parent="menu_container_root"
+        action="action_shipping_container"
+        sequence="60"/>
+</odoo>

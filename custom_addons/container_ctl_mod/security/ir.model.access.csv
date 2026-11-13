@@ -2,3 +2,7 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_shipping_company_user,shipping.company user,model_shipping_company,base.group_user,1,1,1,1
 access_shipping_tariff_user,shipping.tariff user,model_shipping_tariff,base.group_user,1,1,1,1
 access_shipping_tariff_range_user,shipping.tariff.range user,model_shipping_tariff_range,base.group_user,1,1,1,1
+access_shipping_customer_user,shipping.customer user,model_shipping_customer,base.group_user,1,1,1,1
+access_shipping_customer_condition_user,shipping.customer.condition user,model_shipping_customer_condition,base.group_user,1,1,1,1
+access_shipping_book_lading_user,shipping.book.lading user,model_shipping_book_lading,base.group_user,1,1,1,1
+access_shipping_container_user,shipping.container user,model_shipping_container,base.group_user,1,1,1,1

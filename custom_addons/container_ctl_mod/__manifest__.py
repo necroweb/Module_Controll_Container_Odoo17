@@ -20,6 +20,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/shipping_views.xml',
+        'views/menu_views.xml',
     ],
     'license': 'LGPL-3'
 }

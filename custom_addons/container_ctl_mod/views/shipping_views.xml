@@ -36,7 +36,8 @@
                                 <tree>
                                     <field name="name"/> 
                                     <field name="container_type"/>
-                                    <field name="vigencia" readonly="1"/>
+                                    <field name="date_from"/>
+                                    <field name="date_to"/>
                                     <field name="free_days" readonly="1"/>
                                 </tree>
 
@@ -47,8 +48,7 @@
                                             <field name="container_type"/>
                                             <field name="date_from"/>
                                             <field name="date_to"/>
-                                            <field name="vigencia" readonly="1"/>
-                                            <field name="free_days" readonly="1"/>
+                                            <field name="free_days"/>
                                         </group>
 
                                         <notebook>
@@ -76,7 +76,21 @@
     <!-- ===================================== -->
     <!-- 2. VISTAS: SHIPPING.TARIFF (TARIFAS)  -->
     <!-- ===================================== -->
-    <!-- Vista lista de tarifas -->
+    <record id="view_shipping_tariff_tree" model="ir.ui.view">
+        <field name="name">shipping.tariff.tree</field>
+        <field name="model">shipping.tariff</field>
+        <field name="arch" type="xml">
+            <tree string="Tarifas">
+                <field name="name"/>
+                <field name="shipping_id"/>
+                <field name="container_type"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="free_days"/>
+            </tree>
+        </field>
+    </record>
+
     <record id="view_shipping_tariff_form" model="ir.ui.view">
         <field name="name">shipping.tariff.form</field>
         <field name="model">shipping.tariff</field>
@@ -91,10 +105,7 @@
                         <group string="Vigencia">
                             <field name="date_from"/>
                             <field name="date_to"/>
-                            <field name="vigencia" readonly="1"/>
-                        </group>
-                        <group>
-                            <field name="free_days" readonly="1"/>
+                            <field name="free_days"/>
                         </group>
                     </group>
                     <notebook>
@@ -124,7 +135,7 @@
         <field name="arch" type="xml">
             <tree string="Tramos de tarifa">
                 <field name="tariff_id"/>
-                <field name="sequence"/>
+                <field name="price_usd"/>
                 <field name="day_start"/>
                 <field name="day_end"/>
             </tree>
@@ -151,7 +162,144 @@
         </field>
     </record>
     <!-- ===================================== -->
-    <!-- 4. ACCIONES                           -->
+    <!-- 4. VISTAS: SHIPPING.TARIFF.RANGE      -->
+    <!-- ===================================== -->
+    <!-- Vista de customer -->
+    <record id="view_shipping_customer_tree" model="ir.ui.view">
+    <field name="name">shipping.customer.tree</field>
+    <field name="model">shipping.customer</field>
+    <field name="arch" type="xml">
+        <tree string="Clientes">
+            <field name="name"/>
+            <field name="extra_days"/>
+            <field name="percentage"/>
+        </tree>
+    </field>
+    </record>
+
+    <record id="view_shipping_customer_form" model="ir.ui.view">
+    <field name="name">shipping.customer.form</field>
+    <field name="model">shipping.customer</field>
+    <field name="arch" type="xml">
+        <form string="Cliente">
+            <sheet>
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" placeholder="Nombre del cliente"/>
+                    </h1>
+                </div>
+
+                <notebook>
+                    <page string="Valores predeterminados">
+                        <group>
+                            <field name="extra_days"/>
+                            <field name="percentage"/>
+                        </group>
+                    </page>
+                    <page string="Condiciones por naviera">
+                        <field name="condition_ids">
+                            <tree editable="bottom">
+                                <field name="shipping_id"/>
+                                <field name="extra_days"/>
+                                <field name="percentage"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+    </field>
+    </record>
+    <!-- ===================================== -->
+    <!-- 5. VISTAS: BOOK OF LADING Y CONTENEDORES -->
+    <!-- ===================================== -->
+    <record id="view_shipping_book_lading_tree" model="ir.ui.view">
+        <field name="name">shipping.book.lading.tree</field>
+        <field name="model">shipping.book.lading</field>
+        <field name="arch" type="xml">
+            <tree string="BL / Embarques">
+                <field name="number_book_lading"/>
+                <field name="shipping_id"/>
+                <field name="customer_id"/>
+                <field name="date_discharge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_shipping_book_lading_form" model="ir.ui.view">
+        <field name="name">shipping.book.lading.form</field>
+        <field name="model">shipping.book.lading</field>
+        <field name="arch" type="xml">
+            <form string="BL / Embarque">
+                <sheet>
+                    <group>
+                        <field name="number_book_lading"/>
+                        <field name="shipping_id"/>
+                        <field name="customer_id"/>
+                        <field name="date_discharge"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Contenedores">
+                            <field name="container_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="container_ref"/>
+                                    <field name="container_type"/>
+                                    <field name="shipping_id" readonly="1"/>
+                                    <field name="book_lading_id" readonly="1"/>
+                                    <field name="customer_id" readonly="1"/>
+                                    <field name="date_discharge"/>
+                                    <field name="date_return"/>
+                                    <field name="observations"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_shipping_container_tree" model="ir.ui.view">
+        <field name="name">shipping.container.tree</field>
+        <field name="model">shipping.container</field>
+        <field name="arch" type="xml">
+            <tree string="Contenedores">
+                <field name="container_ref"/>
+                <field name="container_type"/>
+                <field name="shipping_id"/>
+                <field name="book_lading_id"/>
+                <field name="customer_id"/>
+                <field name="date_discharge"/>
+                <field name="date_return"/>
+                <field name="observations"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_shipping_container_form" model="ir.ui.view">
+        <field name="name">shipping.container.form</field>
+        <field name="model">shipping.container</field>
+        <field name="arch" type="xml">
+            <form string="Contenedor">
+                <sheet>
+                    <group>
+                        <field name="book_lading_id"/>
+                        <field name="container_ref"/>
+                        <field name="container_type"/>
+                        <field name="shipping_id" readonly="1"/>
+                        <field name="customer_id" readonly="1"/>
+                        <field name="date_discharge"/>
+                        <field name="date_return"/>
+                        <field name="observations"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- ===================================== -->
+    <!-- 5. ACCIONES                           -->
     <!-- ===================================== -->
     <record id="action_shipping_company" model="ir.actions.act_window">
         <field name="name">Navieras</field>
@@ -168,29 +316,20 @@
         <field name="res_model">shipping.tariff.range</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <!-- ===================================== -->
-    <!-- 5. MENÚS                              -->
-    <!-- ===================================== -->
-    <menuitem
-        id="menu_container_root"
-        name="Gestión de Contenedores"
-        sequence="10"/>
-    <menuitem
-        id="menu_shipping_company"
-        name="Navieras"
-        parent="menu_container_root"
-        action="action_shipping_company"
-        sequence="10"/>
-    <menuitem
-        id="menu_shipping_tariff"
-        name="Tarifas"
-        parent="menu_container_root"
-        action="action_shipping_tariff"
-        sequence="20"/>
-    <menuitem
-        id="menu_shipping_tariff_range"
-        name="Tramos de tarifa"
-        parent="menu_container_root"
-        action="action_shipping_tariff_range"
-        sequence="30"/>
+    <record id="action_shipping_customer" model="ir.actions.act_window">
+        <field name="name">Clientes</field>
+        <field name="res_model">shipping.customer</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_shipping_book_lading" model="ir.actions.act_window">
+        <field name="name">BL / Embarques</field>
+        <field name="res_model">shipping.book.lading</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_shipping_container" model="ir.actions.act_window">
+        <field name="name">Contenedores</field>
+        <field name="res_model">shipping.container</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+   
 </odoo>
