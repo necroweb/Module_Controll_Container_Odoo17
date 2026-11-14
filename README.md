@@ -15,9 +15,12 @@
 
 
     Introduccion:
-    Modulo desarrollado con ERP Odoo v17 para apoyo en area de coordinacion operativa Puerto Alto S.A.S (empresa ficticia). objetivo: Gestionar contenedores marítimos, controlar sus estados, calcular tiempos de permanencia y administrar tarifas de clientes y navieras. 
+    Modulo desarrollado con ERP Odoo v17 para apoyo en area de coordinacion operativa Puerto Alto S.A.S (empresa ficticia). 
+    
+    objetivo: Gestionar contenedores marítimos, controlar sus estados, calcular tiempos de permanencia y administrar tarifas de         clientes y navieras. 
 
-    -Alcance: Pasar la operacion comercial de excel a plataforma Odoo; Reduciendo sobrecostos operativos por informacion faltante, mal calculo de tarifas y control de tiempos en la recepcion de container. 
+    -Alcance: Pasar la operacion comercial de excel a plataforma Odoo; Reduciendo sobrecostos operativos por informacion 
+    faltante, mal calculo de tarifas y control de tiempos en la recepcion de container. 
 
 # A-¿Cómo instalar nuevo modulo?;
 
@@ -140,6 +143,10 @@
     
     BL → Contenedores: un BL puede tener varios contenedores; cada contenedor pertenece a un BL.
 
+    Diagrama de claes: 
+    <img width="680" height="672" alt="Diagrama_clases_container_mod" src="https://github.com/user-attachments/assets/c3440eb5-835f-45c3-91b5-9abb21f2133d" />
+
+
 
 # Contradiccion encontrada: 
 
@@ -186,13 +193,17 @@
     6. No se agregan estados al contenedor
     7. No se agrega campo para aduntar archivo EIR.
     8. No se condiciona el filtro 2 dias antes para el visualizar: vencidos, afuera y sin facturar
-    9. No se crean grupos de permisos para facturacion o gerencia segun decision.          
+    9. No se crean grupos de permisos para facturacion o gerencia segun decision. 
+
+    vista de datos en modelo container: 
+    <img width="1259" height="511" alt="imagen" src="https://github.com/user-attachments/assets/45a375a7-42d9-4b50-84dd-5d42de7fc668" />
+
+     comprobacion de tabla shipping_container en postgreSQL
+     <img width="378" height="448" alt="imagen" src="https://github.com/user-attachments/assets/db63497a-7672-4580-aeb2-516742d0721f" />
+
     
 # Flujo propuesto
-    resuelve el choque entre Marcela,que necesita corregir fechas, y Jorge, que no quiere cambios después de facturar.
-
-    Respuesta: En este caso se dejaria un campo llamado EIR para adjuntar archivo y que sea validado por operaciones y añadir fecha cierre con estado de notificacion en facturacion (jorge) para que se incluido en la factdura. 
-
+    <img width="556" height="338" alt="Flujo_Container_propuesta drawio" src="https://github.com/user-attachments/assets/118b95df-18c0-4748-add8-6a144033ecb8" />
 # Cronograma 
     1- git clone https://github.com/odoo/odoo.git
     2- Instalar requirement.txt y dependencias 
