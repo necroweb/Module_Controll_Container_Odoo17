@@ -144,9 +144,7 @@
     BL → Contenedores: un BL puede tener varios contenedores; cada contenedor pertenece a un BL.
 
     Diagrama de claes: 
-    <img width="680" height="672" alt="Diagrama_clases_container_mod" src="https://github.com/user-attachments/assets/c3440eb5-835f-45c3-91b5-9abb21f2133d" />
-
-
+    <img width="680" height="672" alt="Diagrama_clases_container_mod" src="https://github.com/user-attachments/assets/5ed53ec1-7875-4c3c-8b0d-585cc1472a51" />
 
 # Contradiccion encontrada: 
 
