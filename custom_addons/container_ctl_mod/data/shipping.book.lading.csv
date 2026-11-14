@@ -1,0 +1,8 @@
+id,number_book_lading,shipping_id,customer_id,date_discharge
+bl_001,NAT-26-0311,Naviera Atlantico,Importadora Sol S.A.S,2026-03-02
+bl_002,NAT-26-0415,Naviera Atlantico,Ferreteria el Tornillo S.A.S,2026-04-10
+bl_003,MSL-0628-A,Mar del sur,Textiles Andinos Ltda.,2026-06-28
+bl_004,NAT-26-0801,Atlantico,Fruta del Valle,2026-08-01
+bl_005,MSL-0905-C,Mar del sur Line,Importadora Sol S.A.S,2026-09-05
+bl_006,NAT-26-0920,Naviera Atlantico,Importadora Sol S.A.S,2026-09-20
+bl_007,MSL-0803-A,Mar del sur Line,Fruta del Valle,2026-08-03

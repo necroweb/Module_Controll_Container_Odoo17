@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models, api
 
 # =====================================================
 # MODELO 2: TARIFAS DE NAVIERAS
@@ -47,6 +47,13 @@ class ShippingTariff(models.Model):
         required=False
     )
 
+    # Vigencia de la tarifa
+    vigencia = fields.Char(
+    string='Vigencia',
+    compute='_compute_vigencia',
+    store=True,
+    
+    )
     # Días libres acordados en la tarifa, independiente de su vigencia
     free_days = fields.Integer(
         string='Dias libres',
@@ -61,3 +68,13 @@ class ShippingTariff(models.Model):
         string='Tramos de tarifa'
     )
 
+    # Funcion para concatenar date_from + date_to
+    @api.depends('date_from', 'date_to')
+    def _compute_vigencia(self):
+        for rec in self:
+            if rec.date_from and rec.date_to:
+                desde = rec.date_from.strftime('%d/%m/%Y')
+                hasta = rec.date_to.strftime('%d/%m/%Y')
+                rec.vigencia = f'Desde {desde} hasta {hasta}'
+            else:
+                rec.vigencia = ''

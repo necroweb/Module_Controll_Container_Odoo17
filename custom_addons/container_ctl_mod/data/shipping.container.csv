@@ -1,0 +1,10 @@
+id,container_ref,container_type,book_lading_id/id,date_discharge,date_return,observations
+container_001,NATU4120783,40HC,bl_001,2026-03-02,2026-03-20,
+container_002,NATU5081634,20DV,bl_002,2026-04-10,2026-04-21,"cliente tiene 5 dias mas"
+container_003,MSLU2209456,40DV,bl_003,2026-06-28,2026-07-15,
+container_004,NATU7713041,40RF,bl_004,2026-08-01,2026-08-14,reefer
+container_005,NATU7713041,40RF,bl_004,2026-08-01,2026-08-14,
+container_006,MSLU6135877,20DV,bl_005,2026-09-05,,pendiente
+container_007,NATU3002195,40HC,bl_006,2026-09-20,2026-09-18,
+container_009,NATU6625310,40HC,bl_001,2026-03-03,2026-03-25,"bajo al otro dia"
+container_010,MSLU9083143,40RF,bl_007,2026-08-03,2026-08-20,

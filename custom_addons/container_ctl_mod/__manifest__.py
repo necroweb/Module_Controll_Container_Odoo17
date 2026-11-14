@@ -19,6 +19,8 @@
 
     'data': [
         'security/ir.model.access.csv',
+        'data/shipping.book.lading.csv',
+        'data/shipping.container.csv',
         'views/shipping_views.xml',
         'views/menu_views.xml',
     ],

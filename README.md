@@ -1,8 +1,18 @@
 # Modulo Odoo Controll_Containers 
-
+    
     Odoo: v17 community,
     Python 3.12.0,
     postgres SQL server 18 
+
+    Repo: https://github.com/necroweb/Module_Controll_Container_Odoo17.git
+    
+    Historial de commit:
+        1d62c948 (HEAD -> main, origin/main) actualizacion dia 4 model y views
+        ff417ba7 Modulo, tres modelos: shipping, vistas xml, tarif, range
+        a4544215 repo container_ctl new module
+        f2000f8f shanges image diagram proces
+        da0b13f9 firts commit repo base
+
 
     Introduccion:
     Modulo desarrollado con ERP Odoo v17 para apoyo en area de coordinacion operativa Puerto Alto S.A.S (empresa ficticia). objetivo: Gestionar contenedores marítimos, controlar sus estados, calcular tiempos de permanencia y administrar tarifas de clientes y navieras. 
@@ -10,6 +20,7 @@
     -Alcance: Pasar la operacion comercial de excel a plataforma Odoo; Reduciendo sobrecostos operativos por informacion faltante, mal calculo de tarifas y control de tiempos en la recepcion de container. 
 
 # A-¿Cómo instalar nuevo modulo?;
+
     1- Ubícate en el directorio para clonar repositorio:
     https://github.com/necroweb/Module_Controll_Container_Odoo17.git
     2-cd Module_Controll_Container_Odoo17
@@ -68,294 +79,181 @@
     NOTA: Se  utiliza a modo de prueba user:admin y password:Admin1234 como credenciales de referencia, pero no debes asumir que serán las credenciales de tu instalación.
 
     10- actualizar modulo instalado: 
-        """ -u container_ctl_mod """
+        """ python .\odoo-bin -c .\odoo.conf -d container_mod -u container_ctl_mod --stop-after-init """
 
-# ¿Como probar nuevo modulo?
-    comprobar que los modelos, las relaciones y las vistas funcionan correctamente:
+# ¿Como probar nuevo modelo?
 
-    Prueba 1. Comprobar que el módulo está instalado En Odoo:
-        1. Ingresa a Aplicaciones.
-        2. Activa el modo desarrollador.
-            ir a configuracion - al final- habilitar developer
-        3. Busca Control Container o container_ctl_mod.
-        4. Comprueba que aparezca como instalado.
-        Si no aparece, utiliza la opción Actualizar lista de aplicaciones en el menu de la parte superior.
+    Para realizar estas pruebas debemos ejecutar previamente nuestro servicios dentro del entorno virtual: 
 
-   Pruebas Funcionales: 
+    1- Inicialmente se ejecutan pruebas funcionales validando accesibilidad a la plataforma odoo, luego buscamos el nuevo modulo entre las categorias para este caso se adjunta a la categoria services como aparece en el archivo odoo.cong. 
+    otra forma de validar es revisando la consola donde se compila el codigo, deberiamos obtener un mensaje similar donde nos indica version de odoo. 
+    carga de base de datos, conexion httmp, puerto, carga de modulos, y carga de registro si existen. 
+
+        mensaje terminal vs code: 
+        """ 
+        venv) PS C:\Odoo17\odoo> python .\odoo-bin -c .\odoo.conf -d container_mod               
+        2026-11-13 23:35:09,074 27004 INFO ? odoo: Odoo version 17.0 
+        2026-11-13 23:35:09,076 27004 INFO ? odoo: Using configuration file at C:\Odoo17\odoo\odoo.conf 
+        2026-11-13 23:35:09,076 27004 INFO ? odoo: addons paths: ['C:\\Odoo17\\odoo\\odoo\\addons', 'c:\\users\\julia\\appdata\\local\\openerp s.a\\odoo\\addons\\17.0', 'c:\\odoo17\\odoo\\odoo\\addons', 'c:\\odoo17\\odoo\\addons', 'c:\\odoo17\\odoo\\custom_addons'] 
+        2026-11-13 23:35:09,077 27004 INFO ? odoo: database: odoo@localhost:5433 
+        2026-11-13 23:35:09,531 27004 INFO ? odoo.addons.base.models.ir_actions_report: You need Wkhtmltopdf to print a pdf version of the reports. 
+        2026-11-13 23:35:09,991 27004 INFO ? odoo.service.server: HTTP service (werkzeug) running on JDark:8017 
+        2026-11-13 23:35:10,121 27004 INFO container_mod odoo.modules.loading: loading 1 modules... 
+        2026-11-13 23:35:10,165 27004 INFO container_mod odoo.modules.loading: 1 modules loaded in 0.04s, 0 queries (+0 extra) 
+        2026-11-13 23:35:10,199 27004 INFO container_mod odoo.modules.loading: loading 12 modules... 
+        2026-11-13 23:35:10,447 27004 INFO container_mod odoo.modules.loading: 12 modules loaded in 0.25s, 0 queries (+0 extra) 
+        2026-11-13 23:35:10,492 27004 INFO container_mod odoo.modules.loading: Modules loaded. 
+        2026-11-13 23:35:10,496 27004 INFO container_mod odoo.modules.registry: Registry loaded in 0.515s 
         
-        Caso de prueba 01: Crear naviera
-        Prueba CRUD
-        1. Ingresa al menú de navieras.
-        2. Crea una naviera de prueba.
-        3. Guarda el registro.
-        4. Comprueba que aparezca en la lista.
+        """
 
-        Caso de prueba 02: Crear tarifa
-        1. Ingresa a tarifas.
-        2. Selecciona una naviera.
-        3. Selecciona el tipo de contenedor.
-        4. Registra las fechas de vigencia.
-        5. Guarda la tarifa.
+     2- se pueden implementar pruebas manuales validando accesibilidad, funcionalidad y comportamiento de datos en diferentes acciones; registro, actualizacion y eliminacion de campos en cada uno de los modelos:
+        -shipping_company --> registravos compañias navieras 
+        -shipping_tariff --> registro de tarifas
+        -shipping_tariff_range --> registros de tarifas por tramos
+        -shipping_customer --> registrar clientes y sus condiciones
+        -shipping_book_lading --> registrar libro de carga
+        -shipping_container --> registro de container
 
-        Caso de prueba 03: Registrar rangos
-        1. Abre la tarifa creada.
-        2. Agrega un rango de días.
-        3. Registra el precio correspondiente.
-        4. Guarda y comprueba que el rango aparezca relacionado con la tarifa.
-
-        Caso de prueba 04: Validar relaciones
-        1. Abre la tarifa.
-        2. Comprueba que corresponda a la naviera seleccionada.
-        3. Comprueba que muestre los rangos registrados.
-        4. Modifica un precio y verifica que se actualice correctamente.
-
-    4. Verificar los datos en PostgreSQL
-        Puedes consultar la base de datos utilizando pgAdmin o psql.
-        - Consulta tablas:  """ \c container_mod ""
-        - Consulta modelos """ \dt """
-        
-
-Contradiccion encontrada: 
-Marcela (coordinadora operativa) Vs Jorge (Facturación)
-Existe una toma de decisiones no articulada con las reglas de negocio debido a que marcela registra fecha de ingreso del container y tiene encuenta el dia de descarega para calcular los dias libres, mientras que jorge inicia el conteo sin tener encuenta el dia de descarga. 
-
-# Creación de repo
-1- git clone https://github.com/odoo/odoo.git
-2- Instalar requirement.txt y dependencias 
-3- crear entorno virtual: python -m venv venv
-4- Añadir atributos de conexion archivo odoo.conf
-5- Configurar base de datos en pgadmin4:
-        -contraseña: puerto123
-        -port: 5433
-6- GIT:
-    git Branch main
-    git add .
-    git status
-    git remote set-url origin https://github.com/necroweb/Module_Controll_Container_Odoo17.git
-    git commit -m "first commit"
-    git push origin main
-
--> Plan de trabajo <-
-    Día 1 -->
-        T01 Instalación Odoo 17
-        T02 Crear repositorio Git
-        T03 Diagrama flujo operaciones 
-        T04 Crear README inicia
-        
+# Modelo de datos: qué modelos creaste, cómo se relacionan y por qué;
+    A- Modelo de datos
     
-Día 2 -->
-    T05 Diagrama flujo propuesta 
-    T06 Estructura módelos - Diagrama clases
-    T07 Crear archivo modelos
-    T08 Nuevo modulo odoo: Configurar adomm-patch en odoo.conf
+    Naviera
+    └── Tarifas
+            └── Tramos de tarifa
 
-Dia 3 --> 
-    T08 Backend- Definir Modelos
-        -shipping.line -> OK
-        -shipping.line.tariff -> OK
-        -shipping.line.tariff.range -> OK
+    Cliente
+    └── Condiciones específicas por naviera
 
-Dia 4 -->         
-        -customer.shipping.condition
-        -demurrage.bl
-        -demurrage.container    
+    BL / Embarque
+    └── Contenedores
 
-# Ejecución:
-1- ingresamos a la raiz del proyecto 
-    - Odoo/
+    b- Cómo funcionan las relaciones
+    Naviera → Tarifas: una naviera puede tener varias tarifas; cada 
+    
+    tarifa pertenece a una naviera.
+    Tarifa → Tramos: una tarifa puede tener varios tramos; cada tramo apunta a una tarifa.
+    
+    Cliente → Condiciones: un cliente puede tener varias condiciones, una para cada naviera.
+    
+    Naviera → Condiciones: una naviera puede aparecer en las condiciones de muchos clientes.
+    
+    BL → Contenedores: un BL puede tener varios contenedores; cada contenedor pertenece a un BL.
 
-2- 
-3- iniciar el servidor: incluyendo el archivo de configuracion
-    - "" python odoo-bin -c odoo.conf ""
-   
-4-Entra en tu navegador a http://localhost:8017
 
-5-Iniciar sesion login Odoo
-    Usuario: admin
-    Contraseña: Admin1234
+# Contradiccion encontrada: 
 
-6- Crear Modulo Container_ctl_mod: 
-se vincula con el archivo odoo.conf; Directorios de modulos:
-addons_path = C:\Odoo17\odoo\odoo\addons,C:\Odoo17\odoo\addons,C:\Odoo17\custom_addons
+    Marcela (coordinadora operativa) Vs Jorge (Facturación)
+    Existe una toma de decisiones no articulada con las reglas de negocio debido a que marcela registra fecha de ingreso del container y tiene encuenta el dia de descarega para calcular los dias libres, mientras que jorge inicia el 
+    conteo sin tener encuenta el dia de descarga. 
 
-7- Crear modelos: 
-    -shipping_company
-    -shipping_tariff
-    -shipping_range
+    ¿ Decision tomada ?
+    Tener en cuenta la fecha de descarga para contar los dias libres por que es la fecha con la que se registra el naviera y se hereda en la fecha incial de contendor. 
 
-ejemplo estructura basica:
-""
-from odoo import fields, models
+    para esta caso en la funcion se le sumo + dia mas al final 
 
-class TestModel(models.Model):
-    _name = "test_model"
-    _description = "Test Model"
+    las preguntas que le harías al cliente antes de salir a producción;
+    a- que son los EIR y TRM 
+    b- que informacion los conforma. 
 
-    name = fields.Char()
-""
+# Errores encontrados en la muestra Excel
+    2-Atendiendo al documento de la prueba se conformo un excel de muestra y se ingreso en formato csv, validando errores por consola y normalizando formato para su ingreso.        
 
-8- actualizar repo 12/11/2026
--git branch
--git status
--git add.
--git commit -m "mensaje commit"
--git push origin main
-## Ejecutar Odoo con el módulo personalizado
+        -shipping.book.lading.csv
+        -shipping.container.csv 
+       
+        Hallazgos: 
+        1- Restriccion al subir registros por que no coincide texto con el campo tipo de container. 
+        2- Restriccion por campo vacio en fecha de dovolucion cuando esta declarado como requerido en el modelo "date_return". 
+        3- Diferentes formatos de fecha no validos con repecto al formato trabajado 
+        dd/mm/aaaa
+        4- Texto no coincide con el formato de texto de navieras y clientes
+        5- formato no definido en el texto uppercase y lowercase
 
-Ejecuta estos comandos desde `C:\Odoo17\odoo`, con el entorno virtual activado.
-El archivo `odoo.conf` debe incluir `C:\Odoo17\odoo\custom_addons` en `addons_path`.
 
-Para instalar el módulo por primera vez:
+  # Resultados esperado caso 6 a 9
+    Por tiempo y conocimientos tecnicos solo se resuleven del punto 1 al punto 3.
+     
+    1.Registrar navieras y sus tarifas por tipo de contenedor, con vigencia y tramos. Cadanaviera puede tener una cantidad distinta de tramos.
+    2.Configurar por cliente sus días libres extra con cada naviera y su porcentaje deadministración.
+    3.Registrar un BL con todos sus contenedores en una sola pantalla. La fecha de descargase toma del BL, pero cada contenedor puede tener la suya.
 
-```powershell
-python .\odoo-bin -c .\odoo.conf -d container_mod -i container_ctl_mod --stop-after-init
-```
+    4.No se realizan Calcular solo, por contenedor: días afuera, días libres, días de demora, cobro de lanaviera y cobro al cliente en dólares, según las reglas de negocio.
+    5. se aplican solo dos reglas de negocio: 
+    - Dias libres contando el dia de carga
+    - Cargos especiales por cliente 
+    - No se convierte moneda dolares  USD a COP pesos colombianos
+    6. No se agregan estados al contenedor
+    7. No se agrega campo para aduntar archivo EIR.
+    8. No se condiciona el filtro 2 dias antes para el visualizar: vencidos, afuera y sin facturar
+    9. No se crean grupos de permisos para facturacion o gerencia segun decision.          
+    
+# Flujo propuesto
+    resuelve el choque entre Marcela,que necesita corregir fechas, y Jorge, que no quiere cambios después de facturar.
 
-Después de cambiar modelos o vistas, actualízalo:
+    Respuesta: En este caso se dejaria un campo llamado EIR para adjuntar archivo y que sea validado por operaciones y añadir fecha cierre con estado de notificacion en facturacion (jorge) para que se incluido en la factdura. 
 
-```powershell
-python .\odoo-bin -c .\odoo.conf -d container_mod -u container_ctl_mod --stop-after-init
-```
+# Cronograma 
+    1- git clone https://github.com/odoo/odoo.git
+    2- Instalar requirement.txt y dependencias 
+    3- crear entorno virtual: python -m venv venv
+    4- Añadir atributos de conexion archivo odoo.conf
+    5- Configurar base de datos en pgadmin4:
+            -contraseña: puerto123
+            -port: 5433
+    6- GIT:
+        git Branch main
+        git add .
+        git status
+        git remote set-url origin https://github.com/necroweb/Module_Controll_Container_Odoo17.git
+        git commit -m "first commit"
+        git push origin main
 
-Para iniciar Odoo y dejar el servidor web ejecutándose:
+    -> Plan de trabajo <-
+        Día 1 -->
+            T01 Instalación Odoo 17
+            T02 Crear repositorio Git
+            T03 Diagrama flujo operaciones 
+            T04 Crear README inicia
+            
+        
+    Día 2 -->
+        T05 Diagrama flujo propuesta 
+        T06 Estructura módelos - Diagrama clases
+        T07 Crear archivo modelos
+        T08 Nuevo modulo odoo: Configurar adomm-patch en odoo.conf
+        actualizar repo:
 
-```powershell
-python .\odoo-bin -c .\odoo.conf -d container_mod
-```
+    Dia 3 --> 
+        T08 Backend- Definir Modelos
+            -shipping.company -> OK
+            -shipping.tariff -> OK
+            -shipping.tariff.range -> OK
+            actualizar repo:
 
-Abre `http://localhost:8017` en el navegador. `--stop-after-init` hace que Odoo
-se detenga al terminar la instalación o actualización; no se usa al iniciar el
-servidor para trabajar normalmente.
+    Dia 4 -->         
+            -shipping_book_lading
+            -shipping_container
+            -shipping_customer
+            -shippping_customer_condition
+            actualizar repo:
 
-## Estructura del módulo `container_ctl_mod`
-
-container_ctl_mod/
-│
-├── __init__.py
-├── __manifest__.py
-│
-├── models/
-│   ├── __init__.py
-│   ├── shipping_company.py
-│   ├── shipping_tariff.py
-│   └── shipping_tariff_range.py
-│
-├── security/
-│   └── ir.model.access.csv
-│
-└── views/
-    └── shipping_views.xml
-
-# Comando de pruebas
-Ingresar psql terminal:
-    "psql -h localhost -p 5433 -U odoo postgres"  
-
-crear tablas bd odoo = container_mod
-    "python odoo-bin -c odoo.conf -d container_mod -i base"
+    Dia 5 --> actualizar repo:
+            -git branch
+            -git status
+            -git add.
+            -git commit -m "mensaje commit"
+            -git push origin main
+            - pruebas funcionales
+            - se documentan algunos casos de prueba
+            - se suben registros de prueba excel de muestra
 
 # Casos de estudio: Control de containers
-Puerto Alto SAS empresa ficticia requiere automatizar la gestion de containers: Actualmente se lleva control de  tiempos y  tarifas de manera manual registrando informacion en excel y no se lleva trazabilidad de container. Se han presentado algunas dificultades cuando no se encuentra fecha de salida de cada container en el area contable, debido a que el puerto debe asumir unos sobre costos si supera los dias estipulados en libro "BL" de contratos de la naviera.
+    Puerto Alto SAS empresa ficticia requiere automatizar la gestion de containers: Actualmente se lleva control de  tiempos y  tarifas de manera manual registrando informacion en excel y no se lleva trazabilidad de container. Se han presentado algunas dificultades cuando no se encuentra fecha de salida de cada container en el area contable, debido a que el puerto debe asumir unos sobre costos si supera los dias estipulados en libro "BL" de contratos de la naviera.
 
 # Diagrama de flujo de proceso
  Diagrama de procesos para llevar control de container Puerto Alto S.A.S
 <img width="686" height="393" alt="Diagrama_flujo_Container drawio" src="https://github.com/user-attachments/assets/12d3ed11-748d-4b5f-b813-952d3ec2ca11" />
-
-# Modelo de datos
-res.partner (Cliente)
-│
-├── customer_shipping.condition
-│   ├── customer_id
-│   ├── shipping_id
-│   ├── extra_free_days
-│   └── admin_percentage
-│
-
-shipping.company (Naviera)
-│
-├── shipping.tariff
-│   ├── shipping_id
-│   ├── container_type
-│   ├── date_from
-│   ├── date_to
-│   └── tariff_range_ids
-│
-└── shipping.tariff.range
-    ├── tariff_id
-    ├── sequence
-    ├── day_from
-    ├── day_to
-    └── price_usd
-
-
-book.lading (BL)
-│
-├── bl_number
-├── customer_id
-├── shipping_id
-├── arrival_date
-├── discharge_date
-├── container_ids
-└── state
-
-container.record
-│
-├── container_number
-├── container_type
-├── bl_id
-├── customer_id
-├── shipping_id
-├── discharge_date
-├── return_date
-├── eir_file
-├── eir_filename
-│
-├── days_out
-├── free_days
-├── delay_days
-│
-├── shipping_cost_usd
-├── customer_cost_usd
-│
-├── carrier_invoice_id
-│
-└── state
-
-carrier.invoice
-│
-├── container_id
-├── invoiced_usd
-├── calculated_usd
-├── difference_usd
-└── state
-
-# Rf
-Requeriientos Funcionales: 
-
-RF01
-Operaciones (Marcela)
-
-Crear BL
-Registrar contenedores
-Registrar descarga
-Registrar devolución
-Adjuntar EIR
-Consultar vencimientos
-
-RF02
-Facturación (Jorge)
-
-Configurar tarifas
-Revisar demoras
-Registrar valor facturado por naviera
-Facturar cliente
-Bloquear modificaciones
-
-RF03
-Gerencia (Patricia)
-
-Consultar reportes
-Consultar rentabilidad
-Consultar diferencias con navieras
 
 
 # Odoo
