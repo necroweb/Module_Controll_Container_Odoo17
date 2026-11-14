@@ -144,7 +144,9 @@
     BL → Contenedores: un BL puede tener varios contenedores; cada contenedor pertenece a un BL.
 
     Diagrama de claes: 
-    <img width="680" height="672" alt="Diagrama_clases_container_mod" src="https://github.com/user-attachments/assets/5ed53ec1-7875-4c3c-8b0d-585cc1472a51" />
+    
+  <img width="680" height="672" alt="Diagrama_clases_container_mod" src="https://github.com/user-attachments/assets/bcd73a13-349f-43a0-bfc1-6c3efa5df466" />
+
 
 # Contradiccion encontrada: 
 
@@ -193,15 +195,16 @@
     8. No se condiciona el filtro 2 dias antes para el visualizar: vencidos, afuera y sin facturar
     9. No se crean grupos de permisos para facturacion o gerencia segun decision. 
 
-    vista de datos en modelo container: 
-    <img width="1259" height="511" alt="imagen" src="https://github.com/user-attachments/assets/45a375a7-42d9-4b50-84dd-5d42de7fc668" />
-
-     comprobacion de tabla shipping_container en postgreSQL
-     <img width="378" height="448" alt="imagen" src="https://github.com/user-attachments/assets/db63497a-7672-4580-aeb2-516742d0721f" />
+    vista de datos desde pestaña de  modelo container: 
+    
+  <img width="1259" height="511" alt="Captura de pantalla 2026-11-13 203840" src="https://github.com/user-attachments/assets/dbeedfb0-2371-400a-807e-4eb25135ec74" />
 
     
 # Flujo propuesto
-    <img width="556" height="338" alt="Flujo_Container_propuesta drawio" src="https://github.com/user-attachments/assets/118b95df-18c0-4748-add8-6a144033ecb8" />
+
+<img width="556" height="338" alt="Flujo_Container_propuesta drawio" src="https://github.com/user-attachments/assets/4829db31-ba42-4404-a2eb-ab74f851f2e5" />
+
+    
 # Cronograma 
     1- git clone https://github.com/odoo/odoo.git
     2- Instalar requirement.txt y dependencias 
